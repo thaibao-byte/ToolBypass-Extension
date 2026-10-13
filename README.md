@@ -6,7 +6,25 @@ Extension Chrome / Kiwi Browser / Quetta tự động vượt (bypass) Link4M.
 **Phiên bản:** 28.0  
 **Repo public:** https://github.com/thaibao-byte/ToolBypass-Extension
 
-## Tính năng
+## 🌸 Web UI (dành cho iPhone & dễ dùng)
+
+Vì extension không chạy được trên Safari iOS, mình đã làm thêm **giao diện web** tối ưu mobile:
+
+**→ Mở file Web UI:** [`web-ui.html`](./web-ui.html)
+
+Hoặc xem raw: https://raw.githubusercontent.com/thaibao-byte/ToolBypass-Extension/main/web-ui.html
+
+### Cách dùng Web UI trên iPhone:
+1. Mở file `web-ui.html` (hoặc raw link) bằng Safari / Teak / Chrome
+2. Dán link Link4M vào ô
+3. Nhấn **Mở trang & Bắt đầu**
+4. Làm theo hướng dẫn trên trang
+
+Web UI có lưu link gần nhất, hỗ trợ sao chép hướng dẫn, và tối ưu giao diện cho màn hình nhỏ.
+
+---
+
+## Tính năng Extension
 
 - Tự động xử lý trang Link4M (link4m.net / .org / .com)
 - Tự click kết quả Google khi cần
@@ -15,7 +33,7 @@ Extension Chrome / Kiwi Browser / Quetta tự động vượt (bypass) Link4M.
 - Lưu trạng thái, hỗ trợ reset
 - Hỗ trợ Kiwi Browser (Android) và trình duyệt Chromium desktop
 
-## Cài đặt
+## Cài đặt Extension
 
 ### Cách 1: Cài từ source (khuyến nghị)
 
@@ -32,7 +50,7 @@ Extension Chrome / Kiwi Browser / Quetta tự động vượt (bypass) Link4M.
 
 Nếu bạn có file `Toolbypass-Extension.zip` gốc, giải nén và làm theo bước 3 ở trên.
 
-## Hướng dẫn sử dụng
+## Hướng dẫn sử dụng Extension
 
 1. Mở trang Link4M cần vượt (link dạng `https://xxx.link4m.net/...` hoặc tương tự).
 2. Panel ToolBypass sẽ tự xuất hiện ở góc màn hình.
@@ -51,6 +69,7 @@ Nếu bạn có file `Toolbypass-Extension.zip` gốc, giải nén và làm theo
 - Cần cấp quyền `storage`, `tabs`, `scripting` và host permissions rộng (do Link4M redirect linh hoạt).
 - Trên Android dùng **Kiwi Browser** hoặc **Quetta Browser** để load unpacked extension.
 - Nếu Google Captcha / Cloudflare chặn → làm thủ công rồi tool sẽ tiếp tục.
+- **iPhone**: Dùng Web UI ở trên hoặc Teak Browser thử load extension.
 
 ## Cấu trúc file
 
@@ -59,6 +78,7 @@ ToolBypass-Extension/
 ├── manifest.json     # Manifest V3
 ├── background.js     # Service worker (minimal)
 ├── content.js        # Logic chính (auto bypass)
+├── web-ui.html       # Giao diện web tối ưu iPhone
 ├── icon128.png       # Icon (tùy chọn)
 └── README.md
 ```
