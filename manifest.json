@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "ToolBypass Auto Link4M",
+  "version": "28.0",
+  "description": "Auto vượt Link4M - by t.me/toolbypass",
+  "author": "t.me/toolbypass",
+  "permissions": [
+    "storage",
+    "tabs",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://*.link4m.net/*",
+    "*://*.link4m.org/*",
+    "*://*.link4m.com/*",
+    "*://*.google.com/*",
+    "*://*.google.com.vn/*",
+    "*://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "action": {
+    "default_title": "ToolBypass Auto Link4M"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["icon128.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
