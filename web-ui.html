@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>ToolBypass Link4M — Web UI</title>
+  <meta name="description" content="Giao diện web dễ dùng để vượt Link4M trên iPhone, Android và máy tính" />
+  <style>
+    :root {
+      --pink: #ff6b9d;
+      --pink-dark: #c9184a;
+      --pink-soft: #ffe0eb;
+      --bg: #fff5f8;
+      --card: #ffffff;
+      --text: #3d2c34;
+      --text-soft: #8a6b77;
+      --border: #ffd6e5;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      background: linear-gradient(160deg, #fff0f5 0%, #fff5f8 50%, #ffe4ec 100%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 16px;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding: 24px 0 20px;
+    }
+
+    .logo {
+      font-size: 42px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--pink-dark);
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    /* Card */
+    .card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 30px rgba(255, 107, 157, 0.12);
+      border: 1px solid var(--border);
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--pink-dark);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Input */
+    .input-group {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-soft);
+      margin-bottom: 6px;
+    }
+
+    input[type="url"],
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      font-size: 15px;
+      background: #fff;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      border-color: var(--pink);
+    }
+
+    /* Buttons */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 10px;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--pink) 0%, var(--pink-dark) 100%);
+      color: white;
+      box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--pink-soft);
+      color: var(--pink-dark);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--border);
+      color: var(--text);
+    }
+
+    /* Steps */
+    .steps {
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .steps li {
+      position: relative;
+      padding: 12px 0 12px 44px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .steps li:last-child {
+      border-bottom: none;
+    }
+
+    .steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 12px;
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Tips */
+    .tip {
+      background: #fff8e6;
+      border-left: 4px solid var(--warning);
+      padding: 12px 14px;
+      border-radius: 0 12px 12px 0;
+      font-size: 13px;
+      margin-top: 12px;
+    }
+
+    .tip strong {
+      color: #b45309;
+    }
+
+    /* Status */
+    .status {
+      text-align: center;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: none;
+    }
+
+    .status.show {
+      display: block;
+    }
+
+    .status.success {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .status.info {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 24px 0;
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    footer a {
+      color: var(--pink-dark);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Platform badges */
+    .platforms {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .badge {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: var(--pink-soft);
+      color: var(--pink-dark);
+      font-weight: 600;
+    }
+
+    .badge.ios {
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">🌸</div>
+      <h1>ToolBypass Link4M</h1>
+      <p class="subtitle">Giao diện web dễ dùng · Tối ưu cho iPhone</p>
+      <div class="platforms">
+        <span class="badge ios">iPhone</span>
+        <span class="badge">Android</span>
+        <span class="badge">Desktop</span>
+      </div>
+    </header>
+
+    <!-- Main Action Card -->
+    <div class="card">
+      <div class="card-title">🔗 Dán link Link4M</div>
+
+      <div class="input-group">
+        <label for="linkInput">Link cần vượt</label>
+        <input type="url" id="linkInput" placeholder="https://xxx.link4m.net/..." inputmode="url" autocomplete="off" />
+      </div>
+
+      <div id="statusBox" class="status"></div>
+
+      <button class="btn btn-primary" id="openBtn">
+        🚀 Mở trang & Bắt đầu
+      </button>
+
+      <button class="btn btn-secondary" id="copyBtn">
+        📋 Sao chép hướng dẫn
+      </button>
+    </div>
+
+    <!-- Guide Card -->
+    <div class="card">
+      <div class="card-title">📱 Hướng dẫn trên iPhone</div>
+      <ol class="steps">
+        <li>Dán link Link4M vào ô phía trên</li>
+        <li>Nhấn <strong>Mở trang & Bắt đầu</strong></li>
+        <li>Trang Link4M sẽ mở trong tab mới</li>
+        <li>Làm theo các bước chờ / click trên trang</li>
+        <li>Khi thấy nút cuối cùng → nhấn để lấy link gốc</li>
+      </ol>
+
+      <div class="tip">
+        <strong>Mẹo iPhone:</strong> Nên dùng trình duyệt <strong>Teak Browser</strong> hoặc <strong>Orion</strong> nếu muốn thử extension/userscript. Safari thông thường không hỗ trợ auto hoàn toàn.
+      </div>
+    </div>
+
+    <!-- Alternative Card -->
+    <div class="card">
+      <div class="card-title">⚡ Cách khác (khuyến nghị trên iPhone)</div>
+      <p style="font-size: 14px; margin-bottom: 12px; color: var(--text-soft);">
+        Extension gốc không chạy được trên Safari iOS. Các cách thực tế hơn:
+      </p>
+      <button class="btn btn-outline" onclick="window.open('https://t.me/toolbypass', '_blank')">
+        ✈️ Vào Telegram t.me/toolbypass
+      </button>
+      <button class="btn btn-outline" id="userscriptBtn">
+        📜 Xem hướng dẫn Userscript
+      </button>
+    </div>
+
+    <!-- Domain helper -->
+    <div class="card">
+      <div class="card-title">🎯 Domain đích (nếu cần)</div>
+      <div class="input-group">
+        <label for="domainInput">Domain trang đích (vd: anoor.co)</label>
+        <input type="text" id="domainInput" placeholder="anoor.co" />
+      </div>
+      <p style="font-size: 12px; color: var(--text-soft);">
+        Một số trang Link4M yêu cầu nhập domain đích. Điền vào đây để nhớ khi làm thủ công.
+      </p>
+    </div>
+
+    <footer>
+      Dựa trên ToolBypass Auto Link4M v28<br>
+      <a href="https://github.com/thaibao-byte/ToolBypass-Extension" target="_blank">GitHub Repo</a> · 
+      <a href="https://t.me/toolbypass" target="_blank">t.me/toolbypass</a>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const linkInput = document.getElementById('linkInput');
+      const domainInput = document.getElementById('domainInput');
+      const openBtn = document.getElementById('openBtn');
+      const copyBtn = document.getElementById('copyBtn');
+      const statusBox = document.getElementById('statusBox');
+      const userscriptBtn = document.getElementById('userscriptBtn');
+
+      // Load saved data
+      try {
+        const savedLink = localStorage.getItem('tb_last_link');
+        const savedDomain = localStorage.getItem('tb_last_domain');
+        if (savedLink) linkInput.value = savedLink;
+        if (savedDomain) domainInput.value = savedDomain;
+      } catch (e) {}
+
+      function showStatus(msg, type = 'info') {
+        statusBox.textContent = msg;
+        statusBox.className = 'status show ' + type;
+        setTimeout(() => {
+          statusBox.classList.remove('show');
+        }, 4000);
+      }
+
+      function isValidLink4m(url) {
+        try {
+          const u = new URL(url);
+          return /link4m\.(net|org|com)$/i.test(u.hostname);
+        } catch {
+          return false;
+        }
+      }
+
+      openBtn.addEventListener('click', () => {
+        let url = linkInput.value.trim();
+        if (!url) {
+          showStatus('⚠️ Vui lòng dán link Link4M trước', 'info');
+          linkInput.focus();
+          return;
+        }
+
+        // Auto add https if missing
+        if (!/^https?:\/\//i.test(url)) {
+          url = 'https://' + url;
+          linkInput.value = url;
+        }
+
+        if (!isValidLink4m(url)) {
+          showStatus('⚠️ Link không phải Link4M (link4m.net / .org / .com)', 'info');
+          return;
+        }
+
+        // Save
+        try {
+          localStorage.setItem('tb_last_link', url);
+          if (domainInput.value.trim()) {
+            localStorage.setItem('tb_last_domain', domainInput.value.trim());
+          }
+        } catch (e) {}
+
+        showStatus('🚀 Đang mở trang...', 'success');
+
+        // Open in new tab
+        const newTab = window.open(url, '_blank');
+        if (!newTab) {
+          showStatus('⚠️ Trình duyệt chặn popup. Hãy cho phép popup rồi thử lại.', 'info');
+        }
+      });
+
+      copyBtn.addEventListener('click', async () => {
+        const guide = `🌸 HƯỚNG DẪN VƯỢT LINK4M (iPhone)\n\n1. Mở link Link4M\n2. Chờ đếm ngược / làm captcha nếu có\n3. Click các nút "Tiếp tục" / "Continue"\n4. Nếu bị chuyển sang Google → quay lại hoặc click kết quả\n5. Trên trang đích → tìm và nhấn nút cuối để lấy link gốc\n\nDomain đích: ${domainInput.value.trim() || '(chưa nhập)'}\nLink: ${linkInput.value.trim() || '(chưa có)'}\n\nToolBypass Web UI · t.me/toolbypass`;
+
+        try {
+          await navigator.clipboard.writeText(guide);
+          showStatus('📋 Đã sao chép hướng dẫn!', 'success');
+        } catch {
+          showStatus('Không sao chép được. Hãy copy thủ công.', 'info');
+        }
+      });
+
+      userscriptBtn.addEventListener('click', () => {
+        alert('Userscript đang được chuẩn bị.\n\nHiện tại trên iPhone nên dùng:\n• Teak Browser (thử load extension)\n• Hoặc bot Telegram t.me/toolbypass\n\nRepo: github.com/thaibao-byte/ToolBypass-Extension');
+      });
+
+      // Enter key support
+      linkInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') openBtn.click();
+      });
+    })();
+  </script>
+</body>
+</html>
